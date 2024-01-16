@@ -1,0 +1,14 @@
+[
+  {
+  "id": 1,
+  "name": "Test Brewery",
+  "isOpen:": true,
+  "Specialities": ["IPA", "Session Ales"]
+  },
+  {
+  "id": 2,
+  "name": "New Brew",
+  "isOpen:": true,
+  "Specialities": ["IPA", "Session Ales", "Lager"]
+  }
+]
