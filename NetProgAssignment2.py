@@ -2,56 +2,53 @@ import json
 import requests
 
 
-def random_brew():  # Displays a random brewery
+url = "https://api.openbrewerydb.org/v1/breweries?by_city=miami&per_page=5"
+url_random = "https://api.openbrewerydb.org/v1/breweries/random"
 
+
+def search_brew(url):
+
+    response = requests.get(url)
+    print("\nhttp status code: ", response.status_code, "- ", response.reason)
+    response.raise_for_status()
+
+    json_data = json.loads(response.text)
+
+    print('\nLoading watering holes...')
+    for brewery in json_data:
+        for key, value in brewery.items():
+            if brewery[key] is not None:
+                print(key, ": ", value)
+        print("\n")
+
+
+def main_menu():  # Displays the main menu options
+    print("Welcome to BrewFinder - please select an option.\n")
+    print("1. Pick a random brewery")
+    print("2. Search by US city")
+    print("3. Search by brewery type")
+    print("4. Find your nearest brewery")
+    print("5. Exit BrewFinder")
+
+
+def main_menu_option(option):  # Handles main menu option selections
+    if option == 1:
+        print("Picking a random brewery somewhere, someplace...")
+        search_brew(url_random)
+    if option == 2:
+        by_city = input("Pick a US city:")
+        search_brew("https://api.openbrewerydb.org/v1/breweries?by_city=" + by_city)
+    elif option == 5:
+        print("Thanks for using BrewFinder. Safe journey home")
+        exit()
+    else:
+        print("Invalid option. Please try again\n")
+
+
+while True:  # Runs main_menu() unless option 4 is selected (This calls exit())
+    main_menu()
     try:
-
-        # simple request to fetch and display data from an api #
-        url = "https://api.openbrewerydb.org/v1/breweries?by_city=miami&per_page=3"
-        response = requests.get(url)
-        print("http status code: ",  response.status_code, "- ", response.reason)
-        # response.raise_for_status()
-
-        # json_data = response.json()
-        # parses JSON string and converts into a Python dictionary
-        # but looks like json is an array so parses it into a list :(
-        json_data = json.loads(response.text)
-        print(json_data)
-        print("Type: ", type(json_data), "\n")
-       #  print("The name should be here: ", json_data['name'])
-       #  print("City: ", json_data['city'])
-
-        print("JSON array as Python list: ", json_data[0])
-
-        print("Trying iter: ", iter(json_data))
-
-        # json_dict = {}
-        # for element in json_data:
-        #    json_dict[element] = element
-        # print("Dict converter: ", json_dict, "\n")
-
-
-        # json_data = response.json() # Returns a JSON object of the result (if the result was written in JSON format
-        # json_dict = json_data[0]
-        # print(json_dict)
-
-        for index, item in enumerate(json_data):
-            print("New for loop: ", item)
-        print(json_data['name'])
-
-        # iterates through the dictionary and prints key value pairs
-        # though this one doesn't iterate, it just looks at the first item.
-
-        # for key, value in enumerate(json_data.items()):
-        #    print(key, ": ", value, "\n---------------")
-
-        # for key, value in json_data.items():
-        #    print("{} : {} ".format(key, value))
-
-    # is there a better way of printing this error?
-    except requests.exceptions.RequestException as e:
-        print("Error:", {e})
-        print(type(e))
-
-
-random_brew()
+        option = int(input("Enter your choice: "))
+        main_menu_option(option)
+    except ValueError:  # catches non number but needs to be between 1 and 4
+        print("Invalid: Option needs to be a number between 1 and 4")
