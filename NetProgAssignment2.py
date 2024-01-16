@@ -3,7 +3,7 @@ import requests
 import pprint
 
 
-def random_brew():
+def random_brew():  #Displays a random brewery
 
     try:
 
@@ -13,8 +13,9 @@ def random_brew():
         print("http status code: ",  response.status_code, "\n")
         response.raise_for_status()
         # parses JSON string and converts into a Python dictionary
-        # json_data = json.loads(response.text)
-        json_data = response.json()
+        json_data = json.loads(response.text)
+
+        # json_data = response.json()
         print("Unformatted JSON data:", json_data, "\n")
 
         print("As a Python dictionary", json_data[0], "\n")
