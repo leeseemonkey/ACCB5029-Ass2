@@ -20,6 +20,7 @@ def search_brew(url):
             if brewery[key] is not None:
                 print(key, ": ", value)
         print("\n")
+    print("-----End of results-----")
 
 
 def main_menu():  # Displays the main menu options
@@ -36,10 +37,16 @@ def main_menu_option(option):  # Handles main menu option selections
         print("Picking a random brewery somewhere, someplace...")
         search_brew(url_random)
     if option == 2:
-        by_city = input("Pick a US city:")
+        by_city = input("Pick a US city: ")
         search_brew("https://api.openbrewerydb.org/v1/breweries?by_city=" + by_city)
+    if option == 3:  # This will need some form of exception handling
+        by_type = input("Pick a brewery type: Micro, Nano, Regional, or Brewpub: ")
+        search_brew("https://api.openbrewerydb.org/v1/breweries?by_type=" + by_type)
+    if option == 4:
+        print("Choose a city and 2 letter country code - list of country codes can be found *here*")
+        search_brew("https://api.openbrewerydb.org/v1/breweries?by_dist=51.4816546,-3.1791934&per_page=3")
     elif option == 5:
-        print("Thanks for using BrewFinder. Safe journey home")
+        print("\nThanks for using BrewFinder. Safe journey home")
         exit()
     else:
         print("Invalid option. Please try again\n")
