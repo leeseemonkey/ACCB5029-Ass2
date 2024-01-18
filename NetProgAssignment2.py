@@ -63,7 +63,7 @@ def main_menu_option(option):  # Handles main menu option selections
         search_brew("/random")
 
     elif option == 2:  # This will need some form of exception handling
-        by_city = input("Pick a US city: ")  # .lower()  # api only accepts lower case for by_type
+        by_city = input("Pick a US city, or enter for all: ")  # .lower()  # api only accepts lower case for by_type
         by_type = input("Pick a brewery type: micro, nano, regional, brewpub, or press enter for all: ").lower()
         if by_type in ['Micro', 'Nano', 'Regional', 'Brewpub']:
             search_brew("?by_city={0}&by_type={1}" .format(by_city, by_type))
@@ -72,7 +72,7 @@ def main_menu_option(option):  # Handles main menu option selections
             search_brew("?by_city={0}&per_page=5".format(by_city))
 
     elif option == 3:
-        print("Choose a city and 2 letter country code - list of country codes can be found *here*")
+        print("Choose a city and 2 letter country code:\n")
         by_lat, by_long = get_nearest()
         search_brew("?by_dist={0},{1}&per_page=5".format(by_lat, by_long))
 
