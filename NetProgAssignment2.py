@@ -34,7 +34,8 @@ def get_nearest():
     city = input("Choose a city: ")
     c_code = input("Choose a 2 letter country code: ")
     api = "SLCojxErejjcKrDlee14xw==HjGimltRFWPEoGjO"
-    url = "https://api.api-ninjas.com/v1/geocoding?city={0}&country={1}&x-Api-Key={2}&per_page=3".format(city, c_code, api)
+    url = ("https://api.api-ninjas.com/v1/geocoding?city={0}&country={1}&x-Api-Key={2}&per_page=3"
+           .format(city, c_code, api))
 
     json_data = get_url(url)
 
